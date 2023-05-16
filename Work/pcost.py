@@ -1,25 +1,20 @@
-import csv
-import sys
+# pcost.py
+
+import report
 
 def portfolio_cost(filename):
-    f = open(filename)
-    rows = csv.reader(f)
-    headers = next(rows)
-    total = 0
+    '''
+    Computes the total cost (shares*price) of a portfolio file
+    '''
+    portfolio = report.read_portfolio(filename)
+    return sum([s['shares'] * s['price'] for s in portfolio])
 
-    for row in rows:
-        try:
-            total += int(row[1]) * float(row[2])
-        except ValueError:
-            print("Couldn't parse", row)
+def main(args):
+    if len(args) != 2:
+        raise SystemExit('Usage: %s portfoliofile' % args[0])
+    filename = args[1]
+    print('Total cost:', portfolio_cost(filename))
 
-    f.close()
-    return total
-
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'Data/portfolio.csv'
-
-cost = portfolio_cost(filename)
-print(f'Total cost {cost}')
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
