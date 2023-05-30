@@ -63,3 +63,12 @@ def create_formatter(name):
         return HTMLTableFormatter()
     else:
         raise RuntimeError(f'Unknown format {name}')
+
+
+def print_table(portfolio, attributes, formatter):
+    formatter.headings(attributes)
+    for row in portfolio:
+        rowdata = [str(getattr(row, att)) for att in attributes]
+        formatter.row(rowdata)
+
+
