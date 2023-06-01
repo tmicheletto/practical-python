@@ -1,20 +1,23 @@
 # report.py
 
 import fileparse
-import stock
 import tableformat
+from stock import Stock
+
+from portfolio import Portfolio
 
 def read_portfolio(filename):
     '''
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
     '''
-    with open(filename) as lines:
-        dicts = fileparse.parse_csv(lines, select=['name','shares','price'], types=[str,int,float])
+    with open(filename) as file:
+        portdicts = fileparse.parse_csv(file,
+                                        select=['name','shares','price'],
+                                        types=[str,int,float])
 
-    return [stock.Stock(d['name'], d['shares'], d['price']) for d in dicts]
-
-
+    portfolio = [ Stock(d['name'], d['shares'], d['price']) for d in portdicts ]
+    return Portfolio(portfolio)
 
 def read_prices(filename):
     '''
