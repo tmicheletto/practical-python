@@ -2,7 +2,7 @@
 
 import fileparse
 import tableformat
-from stock import Stock
+from portfolio import Portfolio
 
 from portfolio import Portfolio
 
@@ -11,13 +11,8 @@ def read_portfolio(filename, **opts):
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
     '''
-    with open(filename) as file:
-        portdicts = fileparse.parse_csv(file,
-                                        select=['name','shares','price'],
-                                        types=[str,int,float],
-                                        **opts)
-    portfolio = [ Stock(**d) for d in portdicts ]
-    return Portfolio(portfolio)
+    with open(filename) as lines:
+        return Portfolio.from_csv(lines, **opts)
 
 def read_prices(filename):
     '''
@@ -68,6 +63,7 @@ def main(args):
         raise SystemExit('Usage: %s portfile pricefile format' % args[0])
     portfolio_report(args[1], args[2], args[3])
 
+# python report.py Data/portfolio.csv Data/prices.csv txt
 if __name__ == '__main__':
     import sys
     main(sys.argv)
