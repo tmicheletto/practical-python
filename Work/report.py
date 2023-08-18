@@ -65,5 +65,13 @@ def main(args):
 
 # python report.py Data/portfolio.csv Data/prices.csv txt
 if __name__ == '__main__':
+    # Change settings here to adjust logging output as needed.
+    import logging
+    logging.basicConfig(
+        filename = 'app.log',            # Name of the log file (omit to use stderr)
+        filemode = 'w',                  # File mode (use 'a' to append)
+        level    = logging.WARNING,      # Logging level (DEBUG, INFO, WARNING, ERROR, or CRITICAL)
+    )
+
     import sys
     main(sys.argv)
