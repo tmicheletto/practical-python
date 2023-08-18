@@ -1,8 +1,8 @@
 # ticker.py
 
-import report
-from tableformat import create_formatter
-from follow import follow
+from . import report
+from .tableformat import create_formatter
+from .follow import follow
 import csv
 
 def select_columns(rows, indices):
